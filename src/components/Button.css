@@ -1,0 +1,23 @@
+.fake-store-btn {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: rgba(191, 85, 236, 1);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    height: fit-content;
+}
+
+.fake-store-btn:hover {
+    background-color: purple;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@media only screen and (max-width: 768px) {
+    .fake-store-btn {
+        padding: 8px;
+        font-size: 14px;
+        border-radius: 4px;
+    }
+}
