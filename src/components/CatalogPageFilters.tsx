@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
-import '../App.css';
 
+import useIsMobile from '../hooks/useIsMobile';
 import {categoriesUrl} from '../utils/urls';
+import './CatalogPageFilters.css';
 
 interface CatalogPageFiltersProps {
     productsPerRow: number;
-    toggleProductsPerRow: () => void,
+    toggleProductsPerRow: (target: number) => void,
     selectedCategory: string,
     handleCategoryChange: (category: string) => void,
     sortOrder: string,
@@ -22,6 +22,7 @@ const CatalogPageFilters: React.FC<CatalogPageFiltersProps> = (props) => {
         sortOrder,
         handleSortChange
     } = props;
+    const isMobile = useIsMobile();
     const [categories, setCategories] = useState<string[]>([]);
 
     useEffect(() => {
@@ -30,35 +31,35 @@ const CatalogPageFilters: React.FC<CatalogPageFiltersProps> = (props) => {
             .then((json) => setCategories(json));
     }, [categoriesUrl]);
 
-    return (
-        <div>
-            <Link to="/">Home</Link>
+    const productsPerRowOptions = isMobile ? {low: 1, high: 2} : {low: 2, high: 4};
 
-            <div className="switch-container">
+    return (
+        <div className='filters-wrapper'>
+            <div className="filter-container">
                 <label>Products per row:</label>
                 <label>
                     <input
                         type="radio"
                         name="products-per-row"
-                        value="2"
-                        checked={productsPerRow === 2}
-                        onChange={toggleProductsPerRow}
+                        value={productsPerRowOptions.low}
+                        checked={productsPerRow === productsPerRowOptions.low}
+                        onChange={(e) => toggleProductsPerRow(parseInt(e.target.value))}
                     />
-                    2
+                    {productsPerRowOptions.low}
                 </label>
                 <label>
                     <input
                         type="radio"
                         name="products-per-row"
-                        value="4"
-                        checked={productsPerRow === 4}
-                        onChange={toggleProductsPerRow}
+                        value={productsPerRowOptions.high}
+                        checked={productsPerRow === productsPerRowOptions.high}
+                        onChange={(e) => toggleProductsPerRow(parseInt(e.target.value))}
                     />
-                    4
+                    {productsPerRowOptions.high}
                 </label>
             </div>
 
-            <div className="category-select">
+            <div className="filter-container">
                 <label>Select Category:</label>
                 <select
                     onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleCategoryChange(e.target.value)}
@@ -74,7 +75,7 @@ const CatalogPageFilters: React.FC<CatalogPageFiltersProps> = (props) => {
                 </select>
             </div>
 
-            <div>
+            <div className='filter-container'>
                 <label>Sort By:</label>
                 <select
                     value={sortOrder}
@@ -84,8 +85,6 @@ const CatalogPageFilters: React.FC<CatalogPageFiltersProps> = (props) => {
                     <option value="desc">Descending</option>
                 </select>
             </div>
-
-            <Link to="/cart">View Cart</Link>
         </div>
     );
 }

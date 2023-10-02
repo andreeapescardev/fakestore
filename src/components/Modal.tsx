@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, {ReactNode} from 'react';
 import './Modal.css';
 
 interface ModalProps {
@@ -7,14 +7,16 @@ interface ModalProps {
     children: ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({ show, handleClose, children }) => {
+const Modal: React.FC<ModalProps> = ({show, handleClose, children}) => {
     const showHideClassName = show ? "modal display-block" : "modal display-none";
 
     return (
         <div className={showHideClassName}>
             <section className="modal-main">
                 <button onClick={handleClose}>Close</button>
-                {children}
+                <div className='modal-main-content'>
+                    {children}
+                </div>
             </section>
         </div>
     );

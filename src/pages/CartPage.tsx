@@ -1,10 +1,12 @@
 import React from 'react';
 import '../App.css';
+import './CartPage.css';
 
 import Layout from '../components/Layout';
 import {useCartContext} from '../contexts/CartContext';
 import {CartProduct} from '../types/types';
-import CartItem, {CartHeader} from "../components/CartItem";
+import CartItem from "../components/CartItem";
+import Button from "../components/Button";
 
 function CartPage() {
     const {cartState, dispatch} = useCartContext();
@@ -14,30 +16,17 @@ function CartPage() {
         <Layout>
             <h2>Shopping Cart</h2>
 
-            <button
-                className='fake-store-btn'
-                onClick={() => dispatch({type: 'CLEAR_CART'})}
-                aria-label="Clear Cart"
-            >
-                Clear Cart
-            </button>
-
             {items.length === 0 ? (
                 <p>Your cart is empty.</p>
             ) : (
-                <div>
-                    <table>
-                        <thead>
-                        <CartHeader/>
-                        </thead>
-                        <tbody>
-                        {/*TODO this is just a first concept, only oriented on functionality, not on rendering items - next step is rendering items and UI */}
-                        {items.map((item: CartProduct) => (
-                            <CartItem product={item} key={item.id}/>
-                        ))}
-                        </tbody>
-                    </table>
-                    <p>Total Cart Price: ${calculateTotalPrice(items).toFixed(2)}</p>
+                <div className="wrapper">
+                    {items.map((item: CartProduct) => (
+                        <CartItem product={item} key={item.id}/>
+                    ))}
+                    <div className='total-price'>
+                        <p>Total Cart Price: ${calculateTotalPrice(items).toFixed(2)}</p>
+                    </div>
+                    <Button title='Clear Cart' label='Clear Cart' onClick={() => dispatch({type: 'CLEAR_CART'})}/>
                 </div>
             )}
         </Layout>

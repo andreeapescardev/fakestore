@@ -4,6 +4,7 @@ import './ProductCard.css';
 
 import {useCartContext} from '../contexts/CartContext';
 import {Product} from '../types/types';
+import Button from "./Button";
 
 interface ProductCardProps {
     product: Product;
@@ -32,13 +33,11 @@ const ProductCard: React.FC<ProductCardProps> = ({product, productsPerRow, openM
     return (
         <div style={cardStyle} className="product-card">
             <img src={image} alt={title}/>
-            <h3>{title}</h3>
-            <p>Price: {price}</p>
-            <button
-                className='fake-store-btn'
-                onClick={handleAddToCart}
-            >Add to Cart
-            </button>
+            <div>
+                <h3 className='product-title'>{title}</h3>
+                <p>Price: ${price}</p>
+            </div>
+            <Button title='Add to Cart' label='Add to Cart' onClick={handleAddToCart}/>
         </div>
     );
 };

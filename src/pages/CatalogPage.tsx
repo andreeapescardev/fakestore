@@ -1,6 +1,7 @@
-import React, {useState, useCallback} from 'react';
-import {Link} from 'react-router-dom';
+import React, {useState, useCallback, useEffect} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 import '../App.css';
+import './CatalogPage.css';
 
 
 import Layout from '../components/Layout';
@@ -9,12 +10,25 @@ import ProductCard from '../components/ProductCard';
 import CatalogPageFilters from '../components/CatalogPageFilters';
 import useFetch from '../hooks/useFetch';
 import {productsUrl} from '../utils/urls';
+import useIsMobile from "../hooks/useIsMobile";
+import Button from "../components/Button";
 
 function CatalogPage() {
+    const navigate = useNavigate();
+    const isMobile = useIsMobile();
+
     const [selectedCategory, setSelectedCategory] = useState<string>('');
     const [sortOrder, setSortOrder] = useState('asc');
-    const [productsPerRow, setProductsPerRow] = useState<number>(4);
+    const [productsPerRow, setProductsPerRow] = useState<number>(2);
     const [showModal, setShowModal] = useState(false);
+
+    useEffect(() => {
+        if (!isMobile) {
+            setProductsPerRow(4);
+        } else {
+            setProductsPerRow(2);
+        }
+    }, [isMobile]);
 
     const {data: productsData, loading, error} = useFetch(
         `${selectedCategory
@@ -31,8 +45,8 @@ function CatalogPage() {
         setSelectedCategory(newCategory);
     }, []);
 
-    const toggleProductsPerRow = useCallback(() => {
-        setProductsPerRow((prev) => (prev === 2 ? 4 : 2));
+    const toggleProductsPerRow = useCallback((value: number) => {
+        setProductsPerRow((prev) => value);
     }, []);
 
     // modal handlers
@@ -42,6 +56,10 @@ function CatalogPage() {
 
     const closeModal = useCallback(() => {
         setShowModal(false);
+    }, []);
+
+    const navigateToCart = useCallback(() => {
+        navigate('/cart');
     }, []);
 
     // rendering
@@ -60,7 +78,8 @@ function CatalogPage() {
                 handleSortChange={handleSortChange}
             />
 
-            {/*TODO this is just a first concept, only oriented on functionality, not on rendering items - next step is rendering items and UI */}
+            <h2>Catalog</h2>
+
             {(productsData && productsData.length > 0) ? (
                 <div className="product-list">
                     {productsData.map((product) => (
@@ -79,7 +98,11 @@ function CatalogPage() {
             {/* Modal that shows up when product is added in cart */}
             <Modal show={showModal} handleClose={closeModal}>
                 <h2>Item was added in cart!</h2>
-                <Link to="/cart">View Cart</Link>
+                <Button
+                    label='Go to Cart'
+                    title='Go to Cart'
+                    onClick={navigateToCart}
+                />
             </Modal>
         </Layout>
     );

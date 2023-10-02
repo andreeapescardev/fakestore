@@ -1,0 +1,31 @@
+.filters-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.filter-container {
+    margin: 0 8px;
+}
+
+.filter-container label:nth-child(1) {
+    margin-right: 8px;
+}
+
+.filter-container select {
+    font-size: 14px;
+}
+
+@media only screen and (max-width: 768px) {
+    .filters-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    .filter-container {
+        margin: 8px 0;
+    }
+}

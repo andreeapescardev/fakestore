@@ -1,5 +1,16 @@
 /*Cart Item*/
-.cart-item img {
-    height: 60px;
-    width: 60px;
+.cart-item-img {
+    height: 80px;
+    width: 80px;
+}
+
+.quantity-count {
+    margin: 8px;
+}
+
+@media only screen and (max-width: 768px) {
+    .cart-item-img {
+        height: 40px;
+        width: 40px;
+    }
 }
