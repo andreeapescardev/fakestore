@@ -1,6 +1,24 @@
-# Getting Started with Create React App
+
+# Fake Store app
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## About this app
+
+This app is meant to be a Fake Store app. I included:
+- Handling of network requests
+- Typescript
+- Routing
+- State management
+- React (also started learning React Hooks :) )
+- CSS - responsiveness
+
+What would be the next steps:
+- Page for product details
+- use SASS
+- Add some layers on project structure (separate components into multiple folders)
+
+
 
 ## Available Scripts
 
