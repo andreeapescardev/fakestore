@@ -1,0 +1,16 @@
+/*Product*/
+
+.product-card {
+    border: 1px solid #ccc;
+    padding: 16px;
+    margin: 16px;
+    text-align: center;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+
+.product-card img {
+    max-width: 100%;
+    max-height: 200px;
+}
