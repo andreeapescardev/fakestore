@@ -1,0 +1,21 @@
+header {
+    background-image: linear-gradient(to bottom, pink, white);
+    padding: 6px 12px;
+}
+
+.links-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.link {
+    text-decoration: none;
+    color: purple;
+    padding: 16px;
+}
+
+.link:hover {
+    background-color: rgba(239, 239, 240, 0.3);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
